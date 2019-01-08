@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './Navbar';
 import Lightsaber from './Lightsaber';
 import PopulateList from './PopulateList';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 
 class App extends Component {

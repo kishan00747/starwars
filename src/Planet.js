@@ -1,31 +1,26 @@
 import React from 'react';
 import Card from './Card';
+import ReactPlaceholder from 'react-placeholder';
 
-const Planet = ({data}) => {
 
-	
+class Planet extends React.Component{
 
-	if(data == null)
+
+	render()
 	{
-		return (
-			<Card>
-				<h2> Planet Loading... </h2>
-			</Card>
-		);
-	}	
-	else
-	{
-			const {name, diameter, climate, gravity} = data;
+			const {name, diameter, climate, gravity} = this.props.data;
 			return (
 
-			
-
 				<Card>
-					<h2 className='f3 pv2'>{name}</h2>
-					<p className='f5 pv1'>Diameter: {diameter}</p>
-					<p className='f5 pv1'>Climate: {climate}</p>
-					<p className='f5 pv1'>Gravity: {gravity}</p>
+					<ReactPlaceholder showLoadingAnimation type='text' rows={4} ready={this.props.ready}>				  
+					    	
+						<h2 className='f3 pv2'>{name}</h2>
+						<p className='f5 pv1'>Diameter: {diameter}</p>
+						<p className='f5 pv1'>Climate: {climate}</p>
+						<p className='f5 pv1'>Gravity: {gravity}</p>
 
+
+					</ReactPlaceholder>
 				</Card>
 
 
