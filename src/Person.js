@@ -1,29 +1,23 @@
 import React from 'react';
+import ReactPlaceholder from 'react-placeholder';
 import Card from './Card';
 
-const Person = ({data}) => {
+class Person extends React.Component{
 
-	
 
-	if(data == null)
+	render()
 	{
-		return (
-			<Card>
-				<h2> Person Loading... </h2>
-			</Card>
-		);
-	}	
-	else
-	{
-			const {name, height, mass} = data;
+			const {name, height, mass} = this.props.data;
 			return (
 
-			
-
 				<Card>
-					<h2 className='f3 pv2'>{name}</h2>
-					<p className='f5 pv1'>Height: {height}</p>
-					<p className='f5 pv1'>Mass: {mass}</p>
+					<ReactPlaceholder showLoadingAnimation type='text' rows={3} ready={this.props.ready}>				  
+					    	
+						<h2 className='f3 pv2'>{name}</h2>
+						<p className='f5 pv1'>Height: {height}</p>
+						<p className='f5 pv1'>Mass: {mass}</p>
+
+					</ReactPlaceholder>
 				</Card>
 
 

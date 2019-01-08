@@ -3,8 +3,7 @@ import Person from './Person';
 import Planet from './Planet';
 import Card from './Card';
 import Button from './Button';
-import ReactPlaceholder from 'react-placeholder';
-import "react-placeholder/lib/reactPlaceholder.css";
+
 
 
 
@@ -12,23 +11,44 @@ class PopulateList extends React.Component {
 
 	constructor(props)
 	{
-		super();
+		super(props);
 		this.state = {
-			dataSet: []
+			dataSet: [],
+			urlNext: '',
+			urlPrev: '',
+			ready: false
 		}
 	}
 
-	showPlaceholder = false;
+	onButtonClick = (event) => {
 
-	fetchData = () => {
-
-		if(this.props.category !== 'default')
+		if(event.target.id === 'btnNext' && this.state.urlNext != null)
 		{
-			fetch('https://swapi.co/api/' + this.props.category)
+			const url = this.state.urlNext.replace('https://swapi.co/api/','')
+			this.setState({ready: false});
+			this.fetchData(url);
+		}
+
+		if(event.target.id === 'btnPrev' && this.state.urlPrev != null)
+		{
+			const url = this.state.urlPrev.replace('https://swapi.co/api/','')
+			this.setState({ready: false});
+			this.fetchData(url);
+		}
+		
+
+	}
+
+
+	fetchData = (url) => {
+
+		if(url !== 'default')
+		{
+			fetch('https://swapi.co/api/' + url)
 					  	 .then(response => response.json())
 					  	 .then(data => {
-					  	 	this.showPlaceholder = false;
-					  	 	this.setState({dataSet: data.results});
+					  	 	
+					  	 	this.setState({dataSet: data.results, urlNext:data.next, urlPrev:data.previous, ready: true});
 					  	 	});
 
 		}
@@ -38,14 +58,14 @@ class PopulateList extends React.Component {
 
 	componentDidMount()
 	{
-  		this.fetchData();		
+  		this.fetchData(this.props.category);		
   	}
 
   	componentDidUpdate(prevProps)
   	{
   		if(prevProps.category !== this.props.category)
   		{
-  			this.fetchData();
+  			this.fetchData(this.props.category);
   		}
   	}
 
@@ -53,11 +73,16 @@ class PopulateList extends React.Component {
   	{
   		if(this.props.category !== nextProps.category)
   		{
-  			this.showPlaceholder = true;
+  			this.setState({ready: false});
   			return true;
   		}
 
   		if(this.state.dataSet !== nextState.dataSet)
+  		{
+  			return true;
+  		}
+
+  		if(this.state.ready !== nextState.ready)
   		{
   			return true;
   		}
@@ -83,14 +108,14 @@ class PopulateList extends React.Component {
 		{
 			const {dataSet} = this.state;
 
-			if(this.showPlaceholder)
+			if(!dataSet.length)
 			{
 				return (
 					<div>
 					    <Card>
-					    	<ReactPlaceholder showLoadingAnimation type='text' rows={4} ready={false}>				  
-					     		<p>This is a test</p>
-					    	</ReactPlaceholder>
+					    				  
+					     		<h2>Data Loading...</h2>
+					    	
 				    	</Card>
 				    </div>
 				);
@@ -106,7 +131,7 @@ class PopulateList extends React.Component {
 						{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data}/>
+								return <Person key={i} data={data} ready={this.state.ready}/>
 							});
 
 					  		break;
@@ -116,7 +141,7 @@ class PopulateList extends React.Component {
 					  	{
 					        populatedArray = dataSet.map( (data,i) => {
 
-								return <Planet key={i} data={data}/>
+								return <Planet key={i} data={data} ready={this.state.ready}/>
 							});
 							
 					  		break;
@@ -126,7 +151,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data}/>
+								return <Person key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -135,7 +160,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data}/>
+								return <Person key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -144,7 +169,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data}/>
+								return <Person key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -153,7 +178,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data}/>
+								return <Person key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -164,12 +189,26 @@ class PopulateList extends React.Component {
 					  	}
 				}
 
+				let buttons = [];
+
+				if(this.state.urlPrev !== null)
+				{
+					buttons.push(<Button key={1} id='btnPrev' label='Prev' onButtonClick={this.onButtonClick}/>);
+				}
+
+
+				if(this.state.urlNext !== null)
+				{
+					buttons.push(<Button key={0} id='btnNext' label='Next' onButtonClick={this.onButtonClick}/>);
+				}
+
+				
 				return (
 					<div>
 						<div className='flex items-start flex-wrap'>
 							{populatedArray}
 						</div>
-						<Button label='Next' onButtonClick={this.onButtonClick}/>
+						{buttons}
 					</div>
 				);
 			}	
