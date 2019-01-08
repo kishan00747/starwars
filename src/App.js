@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Navbar from './Navbar';
+import Lightsaber from './Lightsaber';
+import PopulateList from './PopulateList';
+
 
 class App extends Component {
+
+
+  constructor()
+  {
+  		super();
+  		this.state = {
+  			category: 'default'
+  		}
+
+  }
+
+
+  changeCategory = (category) =>
+  {
+  		
+		this.setState({category: category});			
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
+      <div className=''>
+        <h1 className='f1 tc ttu white'>Star Wars Universe</h1>
+        <Navbar changeCategory={this.changeCategory}/>
+        <div className='fl'>
+        	<Lightsaber />
+        </div>
+
+        <div className='mr3'>
+        	<PopulateList category={this.state.category}/>
+        </div>
+
       </div>
     );
   }
