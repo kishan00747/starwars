@@ -1,6 +1,10 @@
 import React from 'react';
 import Person from './Person';
 import Planet from './Planet';
+import Film from './Film.js';
+import Specie from './Specie';
+import Vehicle from './Vehicle';
+import Starship from './Starship';
 import Card from './Card';
 import Button from './Button';
 
@@ -151,7 +155,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data} ready={this.state.ready}/>
+								return <Film key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -160,7 +164,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data} ready={this.state.ready}/>
+								return <Specie key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -169,7 +173,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data} ready={this.state.ready}/>
+								return <Vehicle key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -178,7 +182,7 @@ class PopulateList extends React.Component {
 					  	{
 							populatedArray = dataSet.map( (data,i) => {
 
-								return <Person key={i} data={data} ready={this.state.ready}/>
+								return <Starship key={i} data={data} ready={this.state.ready}/>
 							});
 					  		break;
 					  	}
@@ -204,11 +208,13 @@ class PopulateList extends React.Component {
 
 				
 				return (
-					<div>
-						<div className='flex items-start flex-wrap'>
+					<div className="flex flex-column justify-center">
+						<div className='flex items-start flex-wrap justify-center'>
 							{populatedArray}
 						</div>
-						{buttons}
+						<div className='center'>
+							{buttons}
+						</div>
 					</div>
 				);
 			}	

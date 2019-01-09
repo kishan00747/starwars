@@ -1,10 +1,10 @@
 .card {
-	background-color: #dcedc8;
+	background-color: #eeeeee;
 	width: 300px;
 }
 
 .card:hover {
-	background-color: #aabb97;
+	background-color: #bdbdbd;
 }
 
 h2, p {
