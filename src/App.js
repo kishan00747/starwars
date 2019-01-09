@@ -40,6 +40,10 @@ class App extends Component {
         	<PopulateList category={this.state.category}/>
         </div>
 
+        <div className='tc yellow ma3 pa3 bg-dark-gray br2' style={{clear: 'both'}}>
+          <p> Made by <a className='white' href='https://kishan00747.github.io'>kishan00747</a>. All rights reserved. </p>
+        </div>
+
       </div>
     );
   }
