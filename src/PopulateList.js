@@ -115,7 +115,7 @@ class PopulateList extends React.Component {
 			if(!dataSet.length)
 			{
 				return (
-					<div>
+					<div className='flex justify-center'>
 					    <Card>
 					    				  
 					     		<h2>Data Loading...</h2>
