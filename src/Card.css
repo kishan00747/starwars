@@ -1,6 +1,9 @@
 .card {
 	background-color: #eeeeee;
+	flex-grow: 0;
+	flex-shrink: 1;
 	width: 300px;
+	
 }
 
 .card:hover {

@@ -209,10 +209,10 @@ class PopulateList extends React.Component {
 				
 				return (
 					<div className="flex flex-column justify-center">
-						<div className='flex items-start flex-wrap justify-center'>
+						<div className='flex flex-row flex-wrap justify-center' >
 							{populatedArray}
 						</div>
-						<div className='flex flex-column center'>
+						<div className='flex flex-row justify-center flex-wrap center'>
 							{buttons}
 						</div>
 					</div>
